@@ -20,29 +20,26 @@
     // Cordova is ready
     //
     function onDeviceReady() {
-        // create
-        var contact = navigator.contacts.create();
-        contact.displayName = "Plumber";
-        contact.nickname = "Plumber";       //specify both to support all devices
-        var name = new ContactName();
-        name.givenName = "Jane";
-        name.familyName = "Doe";
-        contact.name = name;
-
-        // save
-        contact.save(onSaveSuccess,onSaveError);
+        // find all contacts with 'Bob' in any name field
+        var options = new ContactFindOptions();
+        options.filter="Bob"; 
+        var fields = ["displayName", "name"];
+        navigator.contacts.find(fields, onSuccess, onError, options);
     }
 
-    // onSaveSuccess: Get a snapshot of the current contacts
+    // onSuccess: Get a snapshot of the current contacts
     //
-    function onSaveSuccess(contact) {
-        alert("Save Success");
+    function onSuccess(contacts) {
+        for (var i=0; i<contacts.length; i++) {
+            //console.log("Display Name = " + contacts[i].displayName);
+            document.getElementById('alvo').innerHTML = "Display Name = " + contacts[i].displayName;
+        }
     }
 
-    // onSaveError: Failed to get the contacts
+    // onError: Failed to get the contacts
     //
-    function onSaveError(contactError) {
-        alert("Error = " + contactError.code);
+    function onError(contactError) {
+        alert('onError!');
     }
 
     </script>
