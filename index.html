@@ -4,7 +4,15 @@
     <title>Contact Example</title>
 
     <script type="text/javascript" charset="utf-8" src="cordova-2.1.0.js"></script>
-    <script type="text/javascript" charset="utf-8">
+
+  </head>
+  <body>
+    <h1>Example</h1>
+    <p>Find Contacts</p>
+    <div id="alvo"></div>
+  </body>
+
+  <script type="text/javascript" charset="utf-8">
 
     // Wait for Cordova to load
     //
@@ -13,30 +21,21 @@
     // Cordova is ready
     //
     function onDeviceReady() {
-        // find all contacts
+        // find all contacts with 'Bob' in any name field
         var options = new ContactFindOptions();
-        options.filter=""; 
-        var filter = ["displayName","addresses"];
-        navigator.contacts.find(filter, onSuccess, onError, options);
+        options.filter="Bob"; 
+        var fields = ["displayName", "name"];
+        navigator.contacts.find(fields, onSuccess, onError, options);
     }
 
     // onSuccess: Get a snapshot of the current contacts
     //
     function onSuccess(contacts) {
-        // display the address information for all contacts
         for (var i=0; i<contacts.length; i++) {
-            for (var j=0; j<contacts[i].addresses.length; j++) {
-                alert("Pref: " + contacts[i].addresses[j].pref + "\n" +
-                        "Type: " + contacts[i].addresses[j].type + "\n" +
-                        "Formatted: " + contacts[i].addresses[j].formatted + "\n" + 
-                        "Street Address: "  + contacts[i].addresses[j].streetAddress + "\n" + 
-                        "Locality: "  + contacts[i].addresses[j].locality + "\n" + 
-                        "Region: "  + contacts[i].addresses[j].region + "\n" + 
-                        "Postal Code: "  + contacts[i].addresses[j].postalCode + "\n" + 
-                        "Country: "  + contacts[i].addresses[j].country);
-            }
+            //console.log("Display Name = " + contacts[i].displayName);
+            document.getElementById('alvo').innerHTML = "Display Name = " + contacts[i].displayName);
         }
-    };
+    }
 
     // onError: Failed to get the contacts
     //
@@ -44,10 +43,6 @@
         alert('onError!');
     }
 
-    </script>
-  </head>
-  <body>
-    <h1>Example</h1>
-    <p>Find Contacts</p>
-  </body>
+    </script>  
+
 </html>
