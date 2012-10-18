@@ -11,7 +11,7 @@
     <p>Find Contacts</p>
     <div id="alvo"></div>
   
-<script type="text/javascript" charset="utf-8">
+    <script type="text/javascript" charset="utf-8">
 
     // Wait for Cordova to load
     //
@@ -20,26 +20,29 @@
     // Cordova is ready
     //
     function onDeviceReady() {
-        // find all contacts with 'Bob' in any name field
-        var options = new ContactFindOptions();
-        options.filter=""; 
-        var fields = ["displayName", "name"];
-        navigator.contacts.find(fields, onSuccess, onError, options);
+        // create
+        var contact = navigator.contacts.create();
+        contact.displayName = "Plumber";
+        contact.nickname = "Plumber";       //specify both to support all devices
+        var name = new ContactName();
+        name.givenName = "Jane";
+        name.familyName = "Doe";
+        contact.name = name;
+
+        // save
+        contact.save(onSaveSuccess,onSaveError);
     }
 
-    // onSuccess: Get a snapshot of the current contacts
+    // onSaveSuccess: Get a snapshot of the current contacts
     //
-    function onSuccess(contacts) {
-        for (var i=0; i<contacts.length; i++) {
-            //console.log("Display Name = " + contacts[i].displayName);
-            document.getElementById('alvo').innerHTML = "Display Name = " + contacts[i].displayName + "\n";
-        }
+    function onSaveSuccess(contact) {
+        alert("Save Success");
     }
 
-    // onError: Failed to get the contacts
+    // onSaveError: Failed to get the contacts
     //
-    function onError(contactError) {
-        alert('onError!');
+    function onSaveError(contactError) {
+        alert("Error = " + contactError.code);
     }
 
     </script>
