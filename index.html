@@ -10,9 +10,8 @@
     <h1>Example</h1>
     <p>Find Contacts</p>
     <div id="alvo"></div>
-  </body>
-
-  <script type="text/javascript" charset="utf-8">
+  
+<script type="text/javascript" charset="utf-8">
 
     // Wait for Cordova to load
     //
@@ -33,7 +32,7 @@
     function onSuccess(contacts) {
         for (var i=0; i<contacts.length; i++) {
             //console.log("Display Name = " + contacts[i].displayName);
-            document.getElementById('alvo').innerHTML = "Display Name = " + contacts[i].displayName);
+            document.getElementById('alvo').innerHTML = "Display Name = " + contacts[i].displayName) + "\n";
         }
     }
 
@@ -43,6 +42,9 @@
         alert('onError!');
     }
 
-    </script>  
+    </script>
+
+
+</body>
 
 </html>
